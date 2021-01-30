@@ -3,7 +3,7 @@ FROM ubuntu:20.04
 # To setup tzdata which is part of mono-devel
 ENV DEBIAN_FRONTEND=noninteractive
 
-ENV GODOT_VERSION "3.2.1"
+ENV GODOT_VERSION "3.2.3"
 
 RUN \
     apt update \
