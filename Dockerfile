@@ -3,8 +3,6 @@ FROM ubuntu:20.04
 # To setup tzdata which is part of mono-devel
 ENV DEBIAN_FRONTEND=noninteractive
 
-ENV GODOT_VERSION "3.2.3"
-
 RUN \
     apt update \
     && apt install -y gnupg ca-certificates wget unzip python3 \
@@ -13,8 +11,10 @@ RUN \
     && apt update && apt install -y tzdata \
     && ln -fs /usr/share/zoneinfo/Europe /etc/localtime \
     && dpkg-reconfigure --frontend noninteractive tzdata \
-    && apt install -y mono-devel \
+    && apt install -y mono-devel nuget \
     && rm -rf /var/lib/apt/lists/*
+
+ENV GODOT_VERSION "3.2.3"
 
 RUN wget https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/mono/Godot_v${GODOT_VERSION}-stable_mono_linux_headless_64.zip \
     && wget https://downloads.tuxfamily.org/godotengine/${GODOT_VERSION}/mono/Godot_v${GODOT_VERSION}-stable_mono_export_templates.tpz \
