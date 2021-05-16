@@ -1,17 +1,14 @@
 FROM ubuntu:20.04
 
-# To setup tzdata which is part of mono-devel
 ENV DEBIAN_FRONTEND=noninteractive
 
 RUN \
-    apt update \
-    && apt install -y gnupg ca-certificates wget unzip python3 \
-    && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF \
-    && echo "deb https://download.mono-project.com/repo/ubuntu stable-focal main" | tee /etc/apt/sources.list.d/mono-official-stable.list \
-    && apt update && apt install -y tzdata \
+    apt-get update && apt-get install -y tzdata gnupg ca-certificates wget unzip python3 git git-lfs \
     && ln -fs /usr/share/zoneinfo/Europe /etc/localtime \
     && dpkg-reconfigure --frontend noninteractive tzdata \
-    && apt install -y mono-devel nuget \
+    && apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv-keys 3FA7E0328081BFF6A14DA29AA6A19B38D3D831EF \
+    && echo "deb https://download.mono-project.com/repo/ubuntu stable-focal main" | tee /etc/apt/sources.list.d/mono-official-stable.list \
+    && apt-get update && apt-get install -y mono-devel nuget \
     && rm -rf /var/lib/apt/lists/*
 
 ENV GODOT_VERSION "3.2.3"
